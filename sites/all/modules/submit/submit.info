@@ -1,0 +1,4 @@
+name = Submit
+description = Submitting picks
+core = 7.x
+package = Survival Pool

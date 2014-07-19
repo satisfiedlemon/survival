@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the user module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+/*function submit_schema() {
+  $schema['teams'] = array(
+    'description' => t('Selected Team'),
+    'fields' => array(
+        'id' => array(
+          'description' => t('The primary identifier for a node.'),
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE
+        ),
+    ),
+  );
+  return $schema;
+}*/

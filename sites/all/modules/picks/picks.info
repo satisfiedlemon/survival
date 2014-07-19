@@ -1,0 +1,4 @@
+name = Picks
+description = Selected Picks for the Current Week
+core = 7.x
+package = Survival Pool

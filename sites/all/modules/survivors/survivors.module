@@ -1,0 +1,119 @@
+<?php
+
+/**
+ * @file
+ * Some comment
+ */
+
+/**
+ * Implements hook_help.
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function survivors_help($path, $arg) {
+  switch($path) {
+    case "admin/help#survivors":
+      return '<p>' . t("Find the survivors") . '</p>';
+    break;
+  }
+}
+
+/**
+ * Implemets hook_block_info()
+ */ 
+function survivors_block_info() {
+  $blocks['survivors'] = array(
+    //the name that will appear in the block list
+    'info' => t('Survivors'),
+    //default setting
+    'cache' => DRUPAL_CACHE_PER_USER,
+  );
+  return $blocks;
+}
+
+/**
+ * Custom content funciton
+ *
+ * Find out if the user is alive
+ *
+ * @return
+ *    survivors
+ */
+function survivors_contents() {
+  //check if the user is still alive
+  //$alive = db_query("SELECT uid FROM {users} WHERE alive = 0")->fetchAllKeyed();
+
+  //use database API to check if the user is still alive
+  $alive = db_select('users', 'u')
+    ->fields('u', array('uid', 'name'))
+    ->condition('alive', 0) //still alive
+    ->condition('status', 1)
+    ->execute();
+  return $alive;
+}
+
+/**
+ * Custom content funciton
+ *
+ * Find out if the user is dead
+ *
+ * @return
+ *    survivors
+ */
+function survivors_dead_contents() {
+  //check if the user is still alive
+  //$alive = db_query("SELECT uid FROM {users} WHERE alive = 0")->fetchAllKeyed();
+
+  //use database API to check if the user is still alive
+  $alive = db_select('users', 'u')
+    ->fields('u', array('uid', 'name'))
+    ->condition('alive', 1) //dead
+    ->condition('status', 1)
+    ->execute();
+  return $alive;
+}
+
+/**
+ * Implements hook_block_view()
+ *
+ * Shows the survivors
+ */
+function survivors_block_view($delta = '') {
+  //access check
+  switch($delta) {
+    case 'survivors':
+      $block['subject'] = t('Survivors'); //subject = title of the block
+      if(user_access('access content')) {
+        //retrieve and process the data here
+
+        //use our custom funciton to retrieve data
+        $result = survivors_contents();
+        //array to contain items for the block to render
+        $items = array();
+        //iterate over the result set and format as links
+        foreach($result as $node) {
+          //print_r($node);
+          $items[] = array(
+            'data' => l($node->name, 'node/' . $node->uid),
+          );
+        }
+
+        //no content
+        if(empty($items)) {
+          $block['content'] = t('No Survivors. GG');
+        }
+        else {
+          //pass data through theme function?
+          $block['content'] = theme('item_list', array(
+            'items' => $items));
+        }
+      }
+    return $block;
+  }
+
+}

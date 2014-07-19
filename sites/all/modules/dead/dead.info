@@ -1,0 +1,4 @@
+name = Dead People
+description = Iterates through the users table and finds all the users who are dead
+core = 7.x
+package = Survival Pool

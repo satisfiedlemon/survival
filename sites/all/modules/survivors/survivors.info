@@ -1,0 +1,4 @@
+name = Survivors
+description = Iterates through the users table and finds all the users who are still alive
+core = 7.x
+package = Survival Pool

@@ -1,0 +1,284 @@
+<?php
+
+/**
+ * @file
+ * Some comment
+ */
+
+/**
+ * Implements hook_help.
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function submit_help($path, $arg) {
+  switch($path) {
+    case "admin/help#submit":
+      return '<p>' . t("Submit the pick for the current week") . '</p>';
+    break;
+  }
+}
+
+/**
+ * Implemets hook_block_info()
+ */ 
+function submit_block_info() {
+  $blocks['submit'] = array(
+    //the name that will appear in the block list
+    'info' => t('Submit'),
+    //default setting
+    'cache' => DRUPAL_CACHE_PER_USER,
+  );
+  return $blocks;
+}
+
+/*function submit_permission() {
+  return array(
+    'administer my module' => array(
+      'title' => t('Administer my module'),
+      'description' => t('Perform administration tasks for my module.'),
+    ),
+  );
+}*/
+
+/**
+  * Menu Hook
+  */
+function submit_menu() {
+  $items = array();
+
+  $items['save_teams'] = array(
+    'page callback' => 'submit_contents',
+    'access callback' => true,
+  );
+  return $items;
+}
+
+/**
+ * Custom content funciton
+ *
+ * Figure out which week we are on
+ *
+ * @return
+ *    current week number
+ */
+function submit_week_number() {
+  //$week = 0;
+  $current_date = $_POST['current_date'];
+  //echo $current_date;
+  //$current_date = 1381806000011;
+
+  /*if($current_date <= 1378659600000) {
+    $week = 1;
+  }
+  else if($current_date >= 1378803600000 && $current_date <= 1379386799000) {
+  if($current_date <= 1379386799000) {
+    $week = 2;
+  }
+  else if($current_date >= 1379386800000 && $current_date <= 1379991599000) {
+    $week = 3;
+  }
+  else if($current_date >= 1379991600000 && $current_date <= 1380596399000) { 
+    $week = 4;
+  }
+  else if($current_date >= 1380596400000 && $current_date <= 1381201199000) { 
+    $week = 5;
+  }
+  else if($current_date >= 1381201200000 && $current_date <= 1381805999000) {
+    $week = 6;
+  }
+  else if($current_date >= 1381806000000 && $current_date <= 1382410799000) { 
+
+  if($current_date <= 1382410799000) {
+    $week = 7;
+  }
+  else if($current_date >= 1382410800000 && $current_date <= 1383015599000) {
+    $week = 8;
+  }
+  else if($current_date >= 1383015600000 && $current_date <= 1383623999000) {
+    $week = 9;
+  }
+  else if($current_date >= 1383624000000 && $current_date <= 1384228799000) {
+    $week = 10;
+  }
+  else if($current_date >= 1384228800000 && $current_date <= 1384833599000) {
+    $week = 11;
+  }
+  else if($current_date >= 1384833600000 && $current_date <= 1385438399000) {
+    $week = 12;
+  }
+  else if($current_date >= 1385438400000 && $current_date <= 1386043199000) {
+    $week = 13;
+  }
+  else if($current_date >= 1386043200000 && $current_date <= 1386647999000) {
+    $week = 14;
+  }
+  else if($current_date >= 1386648000000 && $current_date <= 1387252799000) {
+    $week = 15;
+  }
+  else if($current_date >= 1387252800000 && $current_date <= 1387857599000) {
+    $week = 16;
+  }
+  else {
+    $week = 17;
+  }*/
+
+  $week = 1;
+
+  return $week;
+}
+
+/**
+ * Custom content funciton
+ *
+ * Submit the user's pick for the current week to the database
+ *
+ * @return
+ *    submit the pick for the current week
+ */
+function submit_contents() {
+  //check if the user is still alive
+  //$alive = db_query("SELECT uid FROM {users} WHERE alive = 0")->fetchAllKeyed();
+
+  //use database API to retrieve the selected pick
+  /*$submit = db_select('teams', 't');
+  $submit->join('users', 'u', 't.uid = u.uid');
+  $submit->join('weeks', 'w', 'u.wid = w.id');
+  $query = $submit
+    ->fields('t', array('id', 'uid', 'wid', 'picks', 'previous_picks'))
+    ->fields('u', array('name', 'alive'))
+    ->condition('u.alive', 0) //still alive
+    ->condition('u.wid', 't.wid', '=') //current week
+    ->condition('t.picks', '', '!=') //made a pick for current week
+    ->condition('t.picks', 't.previous_picks', '!=') //the current week's pick is not the same as previous weeks'
+    ->execute();
+  return $query;*/
+
+  /*$test = db_insert('teams')
+    ->from($query)
+    ->execute();
+  return $test;*/
+
+  global $user;
+  $week = submit_week_number();
+
+  //echo $week;
+
+
+  /*$previous = array();
+  $result = db_query("SELECT t.uid, t.wid, t.picks FROM teams t", array(':uid' => $uid));
+
+  foreach($result as $obj) {
+    if($obj->uid == $previous->uid) {
+      node_delete((int)$obj->nid);
+      drupal_set_message("Deleted node nid={$obj->nid}");
+    }
+    $previous = $obj
+  }*/
+
+  $query_teams = db_insert('picks')
+    ->fields(array(
+      'id' => $id,
+      'uid' => $user->uid,
+      'wid' => $week,
+      'pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
+    ))
+    ->execute();
+
+  $query_users = db_update('users')
+    ->fields(array(
+      'week_1_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
+      'wid' => $week,
+    ))
+    ->condition('uid', $user->uid, '=')
+    ->condition('wid', $week, '=')
+    ->condition('week_1_pick', '', '=')
+    //->condition('week_1_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
+    //->condition('week_2_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
+    //->condition('week_3_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
+    //->condition('week_4_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
+    //->condition('week_5_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
+    //->condition('week_6_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
+    ->execute();
+  return 'success';
+}
+
+/**
+ * Custom content funciton
+ *
+ * Finds duplicated item and deletes it
+ *
+ * @return
+ *    delete the duplicated picks
+ */
+ function submit_dedupe_delete($type) {
+  $previous = array();
+  $result = db_query("SELECT uid, wid, pick FROM {picks}", $type);
+
+  while($row = db_fetch_array($result)) {
+    if($row['uid'] == $previous['uid']) {
+      node_delete($previous['uid']);
+    }
+    $previous = $row;
+  }
+ }
+
+/**
+ * Custom content funciton
+ *
+ * Hides the selected team so it prevents duplicated picked teams
+ *
+ * @return
+ *    hide the selected team
+ */
+ function submit_teams() {
+
+ }
+
+/**
+ * Implements hook_block_view()
+ *
+ * Prepares the contents of the block
+ */
+function submit_block_view($delta = '') {
+  //access check
+  switch($delta) {
+    case 'submit':
+      $block['subject'] = t('Submit'); //subject = title of the block
+      if(user_access('access content')) {
+        //retrieve and process the data here
+
+        //use our custom funciton to retrieve data
+        //$result = submit_contents();
+        //array to contain items for the block to render
+        $items = array();
+        
+        /*
+        //iterate over the result set and format as links
+        foreach($result as $node) {
+          print_r($node);
+          $items[] = array(
+            //'data' => l($node->name, 'node/' . $node->uid),
+            //'data' => 'Week ' . $node->wid . ' : ' . $node->name . ' picked ' . $node->picks,
+            'data' => 'TEST ' . $node->id . 'TEST ' . $node->picks,
+          );
+        }*/
+
+        //no content
+        if(empty($items)) {
+          $block['content'] = t('Please Select a Pick for the Current Week');
+        }
+        else {
+          //pass data through theme function?
+          //show data as item list
+          $block['content'] = theme('item_list', array(
+            'items' => $items));
+        }
+      }
+    return $block;
+  }
+}

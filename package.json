@@ -1,0 +1,22 @@
+{
+  "name": "survival-pool",
+  "version": "0.1.0",
+  "description": "survival pool des",
+  "main": "script.js",
+  "scripts": {
+    "test": "vows --spec --isolate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/satisfiedlemon/survival.git"
+  },
+  "author": "jay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satisfiedlemon/survival/issues"
+  },
+  "homepage": "https://github.com/satisfiedlemon/survival",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
