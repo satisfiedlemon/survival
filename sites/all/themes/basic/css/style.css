@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 body {
   margin: 0;
   font: 16px/1.5em "Helvetica Neue", helvetica, Arial, sans-serif;
@@ -292,6 +293,315 @@ body:before {
   }
 }
 
+body {
+  font-family: 'Indie Flower', cursive;
+}
+
 body.front #block-system-main {
   display: none;
+}
+
+#block-views-available_picks-block {
+  margin-left: 13.55932%;
+  float: left;
+  text-align: center;
+}
+#block-views-available_picks-block h2.block-title {
+  font-size: 48px;
+  text-transform: uppercase;
+}
+#block-views-available_picks-block .view-available-picks {
+  /* Team Logos */
+  /* Team Name */
+}
+#block-views-available_picks-block .view-available-picks .views-row {
+  float: left;
+  display: block;
+  margin-right: 1.69492%;
+  width: 23.72881%;
+  float: left;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+#block-views-available_picks-block .view-available-picks .views-row:last-child {
+  margin-right: 0;
+}
+#block-views-available_picks-block .view-available-picks .views-row:nth-child(4n) {
+  margin-right: 0;
+}
+#block-views-available_picks-block .view-available-picks .views-row:nth-child(4n+1) {
+  clear: left;
+}
+#block-views-available_picks-block .view-available-picks .views-row-1,
+#block-views-available_picks-block .view-available-picks .views-row-5,
+#block-views-available_picks-block .view-available-picks .views-row-9,
+#block-views-available_picks-block .view-available-picks .views-row-13,
+#block-views-available_picks-block .view-available-picks .views-row-17,
+#block-views-available_picks-block .view-available-picks .views-row-21,
+#block-views-available_picks-block .view-available-picks .views-row-25,
+#block-views-available_picks-block .view-available-picks .views-row-29 {
+  clear: left;
+}
+#block-views-available_picks-block .view-available-picks .afc-north,
+#block-views-available_picks-block .view-available-picks .afc-south,
+#block-views-available_picks-block .view-available-picks .afc-east,
+#block-views-available_picks-block .view-available-picks .afc-west {
+  display: inline-block;
+}
+#block-views-available_picks-block .view-available-picks .nfc-north,
+#block-views-available_picks-block .view-available-picks .nfc-south,
+#block-views-available_picks-block .view-available-picks .nfc-east,
+#block-views-available_picks-block .view-available-picks .nfc-west {
+  display: inline-block;
+}
+#block-views-available_picks-block .view-available-picks .views-field-field-team-logos {
+  height: 200px;
+  width: 200px;
+  -moz-border-radius: 120px;
+  -webkit-border-radius: 120px;
+  border-radius: 120px;
+  /* future proofing */
+  -khtml-border-radius: 120px;
+  /* for old Konqueror browsers */
+}
+#block-views-available_picks-block .view-available-picks .views-field-field-team-logos:hover {
+  cursor: pointer;
+}
+#block-views-available_picks-block .view-available-picks .views-field-field-team-logos img {
+  display: none;
+}
+#block-views-available_picks-block .view-available-picks .miami-dolphins .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px 0px;
+}
+#block-views-available_picks-block .view-available-picks .new-york-jets .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px 0px;
+}
+#block-views-available_picks-block .view-available-picks .new-england-patriots .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px 0px;
+}
+#block-views-available_picks-block .view-available-picks .buffalo-bills .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px 0px;
+}
+#block-views-available_picks-block .view-available-picks .jacksonville-jaguars .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -200px;
+}
+#block-views-available_picks-block .view-available-picks .indianapolis-colts .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -200px;
+}
+#block-views-available_picks-block .view-available-picks .tennessee-titans .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -200px;
+}
+#block-views-available_picks-block .view-available-picks .houston-texans .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -200px;
+}
+#block-views-available_picks-block .view-available-picks .cleveland-browns .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -400px;
+}
+#block-views-available_picks-block .view-available-picks .pittsburgh-steelers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -400px;
+}
+#block-views-available_picks-block .view-available-picks .cincinnati-bengals .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -400px;
+}
+#block-views-available_picks-block .view-available-picks .baltimore-ravens .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -400px;
+}
+#block-views-available_picks-block .view-available-picks .kansas-city-chiefs .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -600px;
+}
+#block-views-available_picks-block .view-available-picks .san-diego-chargers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -600px;
+}
+#block-views-available_picks-block .view-available-picks .oakland-raiders .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -600px;
+}
+#block-views-available_picks-block .view-available-picks .denver-broncos .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -600px;
+}
+#block-views-available_picks-block .view-available-picks .washington-redskins .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -800px;
+}
+#block-views-available_picks-block .view-available-picks .philadelphia-eagles .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -800px;
+}
+#block-views-available_picks-block .view-available-picks .new-york-giants .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -800px;
+}
+#block-views-available_picks-block .view-available-picks .dallas-cowboys .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -800px;
+}
+#block-views-available_picks-block .view-available-picks .minnesota-vikings .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -1000px;
+}
+#block-views-available_picks-block .view-available-picks .chicago-bears .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -1000px;
+}
+#block-views-available_picks-block .view-available-picks .detroit-lions .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -1000px;
+}
+#block-views-available_picks-block .view-available-picks .green-bay-packers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -1000px;
+}
+#block-views-available_picks-block .view-available-picks .carolina-panthers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -1200px;
+}
+#block-views-available_picks-block .view-available-picks .new-orleans-saints .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -1200px;
+}
+#block-views-available_picks-block .view-available-picks .atlanta-falcons .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -1200px;
+}
+#block-views-available_picks-block .view-available-picks .tampa-bay-buccaneers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -1200px;
+}
+#block-views-available_picks-block .view-available-picks .san-francisco-49ers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -1400px;
+}
+#block-views-available_picks-block .view-available-picks .arizona-cardinals .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -1400px;
+}
+#block-views-available_picks-block .view-available-picks .seattle-seahawks .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -1400px;
+}
+#block-views-available_picks-block .view-available-picks .st-louis-rams .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -1400px;
+}
+#block-views-available_picks-block .view-available-picks .views-field-title {
+  text-align: center;
+}
+
+#matchup {
+  height: 300px;
+  text-align: center;
+}
+#matchup .user-pick {
+  height: 200px;
+  margin: 0 auto;
+  width: 200px;
+  -moz-border-radius: 120px;
+  -webkit-border-radius: 120px;
+  border-radius: 120px;
+  /* future proofing */
+  -khtml-border-radius: 120px;
+  /* for old Konqueror browsers */
+}
+#matchup .miami-dolphins .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px 0px;
+}
+#matchup .new-york-jets .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px 0px;
+}
+#matchup .new-england-patriots .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px 0px;
+}
+#matchup .buffalo-bills .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px 0px;
+}
+#matchup .jacksonville-jaguars {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -200px;
+}
+#matchup .indianapolis-colts .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -200px;
+}
+#matchup .tennessee-titans .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -200px;
+}
+#matchup .houston-texans .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -200px;
+}
+#matchup .cleveland-browns .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -400px;
+}
+#matchup .pittsburgh-steelers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -400px;
+}
+#matchup .cincinnati-bengals .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -400px;
+}
+#matchup .baltimore-ravens .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -400px;
+}
+#matchup .kansas-city-chiefs .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -600px;
+}
+#matchup .san-diego-chargers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -600px;
+}
+#matchup .oakland-raiders .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -600px;
+}
+#matchup .denver-broncos .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -600px;
+}
+#matchup .washington-redskins .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -800px;
+}
+#matchup .philadelphia-eagles .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -800px;
+}
+#matchup .new-york-giants .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -800px;
+}
+#matchup .dallas-cowboys .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -800px;
+}
+#matchup .minnesota-vikings .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -1000px;
+}
+#matchup .chicago-bears .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -1000px;
+}
+#matchup .detroit-lions .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -1000px;
+}
+#matchup .green-bay-packers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -1000px;
+}
+#matchup .carolina-panthers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -1200px;
+}
+#matchup .new-orleans-saints .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -1200px;
+}
+#matchup .atlanta-falcons .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -1200px;
+}
+#matchup .tampa-bay-buccaneers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -1200px;
+}
+#matchup .san-francisco-49ers .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") 0px -1400px;
+}
+#matchup .arizona-cardinals .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -200px -1400px;
+}
+#matchup .seattle-seahawks .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -400px -1400px;
+}
+#matchup .st-louis-rams .views-field-field-team-logos {
+  background: url("../images/nfl_team_logos_small.jpg") -600px -1400px;
+}
+
+#cancel {
+  background-color: #ff0;
+  height: 200px;
+  margin: 0 auto;
+  width: 400px;
+}
+
+#submit {
+  background-color: #33e;
+  height: 200px;
+  margin: 0 auto;
+  width: 400px;
+}
+
+/* Survivors */
+#block-survivors-survivors {
+  float: left;
+}
+
+/* User Picks */
+#block-picks-picks {
+  float: left;
 }

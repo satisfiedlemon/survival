@@ -58,18 +58,38 @@ function picks_contents() {
   $uid = $user->uid;
   $wid = picks_week_number();
 
+  //print 'uid: ' . $uid;
+  //print 'wid: ' . $wid;
+
   //not sure if I still need this?
-  $previous_pick = $user->week_1_pick;
+  //$previous_pick = $user->week_1_pick;
+
+  /*if(!empty($user->week_1_pick)) {
+    $previous_pick = $user->week_1_pick;
+  } else {
+    $previous_pick = '';
+  }*/
 
   //use database API to retrieve the selected pick
+
   $selected_pick = db_select('picks', 'p');
   $selected_pick->join('users', 'u', 'p.uid = u.uid');
+  //$selected_pick = db_select('users', 'u');
   $query = $selected_pick
+  
     ->fields('p', array('id', 'uid', 'wid', 'pick'))
-    ->fields('u', array('name', 'wid', 'alive', 'week_1_pick', 'week_2_pick', 'week_3_pick', 'week_4_pick', 'week_5_pick', 'week_6_pick', 'week_7_pick', 'week_8_pick', 'week_9_pick', 'week_10_pick', 'week_11_pick', 'week_12_pick', 'week_13_pick', 'week_14_pick', 'week_15_pick', 'week_16_pick', 'week_17_pick'))
+
+    ->fields('u', array('name', 'uid' ,'wid', 'alive', 'week_1_pick', 'week_2_pick', 'week_3_pick', 'week_4_pick', 'week_5_pick', 'week_6_pick', 'week_7_pick', 'week_8_pick', 'week_9_pick', 'week_10_pick', 'week_11_pick', 'week_12_pick', 'week_13_pick', 'week_14_pick', 'week_15_pick', 'week_16_pick', 'week_17_pick'))
+
     ->condition('u.alive', 0) //still alive
-    ->condition('p.wid', $wid) //current week
-    ->condition('u.week_1_pick', 'u.week_7_pick', '!=')
+
+    ->condition('u.wid', $wid) //current week
+    //->condition('p.wid', $wid)
+    //->condition('u.week_1_pick', 'u.week_7_pick', '!=')
+
+    ->condition('u.week_1_pick', 'p.picks', '!=')
+    //->condition('u.week_2_pick', 'u.week_1_pick', '!=')
+
     //->condition('u.week_2_pick', 'u.week_7_pick', '!=')
     //->condition('u.week_3_pick', 'u.week_7_pick', '!=')
     //->condition('u.week_4_pick', 'u.week_7_pick', '!=')
@@ -88,7 +108,7 @@ function picks_contents() {
  *    current week number
  */
 function picks_week_number() {
-  $week = 0;
+  $week = 1;
   $current_date = time();
 
   /*if($current_date <= 1378792800) {
@@ -110,8 +130,8 @@ function picks_week_number() {
   else if($current_date >= 1381201200 && $current_date <= 1381805999) {
     $week = 6;
   }
-  else if($current_date >= 1381806000 && $current_date <= 1382410799) { */
-  if($current_date <= 1382410799) {
+  else if($current_date >= 1381806000 && $current_date <= 1382410799) { 
+  if($current_date <= 1582410799) {
     $week = 7;
   }
   else if($current_date >= 1382410800 && $current_date <= 1383015599) {
@@ -143,7 +163,7 @@ function picks_week_number() {
   }
   else {
     $week = 17;
-  }
+  }*/
 
   return $week;
 }
@@ -176,17 +196,19 @@ function picks_block_view($delta = '') {
         //iterate over the result set and format as links
         foreach($result as $node) {
           
-          //print_r($node);
+          print_r($node);
           //print_r($prev);
           //print_r($week_number);
 
-          if($node->uid != $prev->uid && $node->wid == $get_week_number) {
+          //if($node->uid != $prev->uid && $node->wid == $get_week_number) {
+
+          if($node->u_wid == $get_week_number) {
             $items[] = array(
               //'data' => l($node->name, 'node/' . $node->uid),
               //'data' =>'ID '. $node->id . ' ' . 'Week ' . $node->wid . ' : ' . $node->name . ' picked ' . $node->$week_number,
-              'data' =>'Week ' . $node->wid . ' : ' . $node->name . ' picked ' . $node->$week_number,
-              'uid' => $node->uid,
-              'wid' => $node->wid,
+              'data' =>'Week ' . $node->u_wid . ' : ' . $node->name . ' picked ' . $node->$week_number,
+              'uid' => $node->u_uid,
+              'wid' => $node->u_wid,
               'name' => $node->name,
               'picked' => $node->$week_number,
             );
@@ -206,7 +228,7 @@ function picks_block_view($delta = '') {
 
         //no content
         if(empty($items)) {
-          $block['content'] = t('No Survivals. GG');
+          $block['content'] = t('No User Picks.');
         }
         else {
           //pass data through theme function?

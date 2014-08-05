@@ -4,13 +4,13 @@
     <title>FooTable - jQuery plugin for responsive HTML tables</title>
     <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no"/>
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-	<link href="../css/footable.core.css" rel="stylesheet" type="text/css"/>
+	<link href="../css/footable.core.css?v=2-0-1" rel="stylesheet" type="text/css"/>
     <link href="css/footable-demos.css" rel="stylesheet" type="text/css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
     <script>
         if (!window.jQuery) { document.write('<script src="js/jquery-1.9.1.min.js"><\/script>'); }
     </script>
-    <script src="../js/footable.js" type="text/javascript"></script>
+    <script src="../js/footable.js?v=2-0-1" type="text/javascript"></script>
 	<script src="js/bootstrap-tab.js" type="text/javascript"></script>
     <script src="js/demos.js" type="text/javascript"></script>
 </head>
@@ -68,6 +68,17 @@
 &lt;thead&gt;
     &lt;tr&gt;
         &lt;th data-ignore=&quot;highlight&quot;&gt;Column will not show in detail row&lt;/th&gt;
+    &lt;/tr&gt;
+&lt;/thead&gt;</pre></td>
+                </tr>
+                <tr>
+                    <td><code>data-toggle</code></td>
+                    <td>This specifies the column that will have the toggle button. Default will be the first column.</td>
+                    <td><pre>
+&lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th data-hide=&quot;phone&quot;&gt;Column hidden on phones&lt;/th&gt;
+        &lt;th data-toggle=&quot;true&quot;&gt;Column always shown&lt;/th&gt;
     &lt;/tr&gt;
 &lt;/thead&gt;</pre></td>
                 </tr>

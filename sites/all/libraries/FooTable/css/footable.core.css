@@ -115,6 +115,14 @@
 .footable.breakpoint.toggle-large > tbody > tr > td > span.footable-toggle {
   font-size: 24px;
 }
+.footable > thead > tr > th {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .footable > thead > tr > th.footable-sortable:hover {
   cursor: pointer;
 }
@@ -164,4 +172,7 @@
 }
 .footable-row-detail-value {
   display: table-cell;
+}
+.footable-odd {
+  background-color: #f7f7f7;
 }

@@ -30,49 +30,52 @@
         p.init = function (ft) {
             p.footable = ft;
             if (ft.options.filter.enabled === true) {
+                if ($(ft.table).data('filter') === false) return;
                 ft.timers.register('filter');
-                $(ft.table).bind({
-                    'footable_initialized': function (e) {
-                        var $table = $(ft.table);
-                        var data = {
-                            'input': $table.data('filter') || ft.options.filter.input,
-                            'timeout': $table.data('filter-timeout') || ft.options.filter.timeout,
-                            'minimum': $table.data('filter-minimum') || ft.options.filter.minimum,
-                            'disableEnter': $table.data('filter-disable-enter') || ft.options.filter.disableEnter
-                        };
-                        if (data.disableEnter) {
-                            $(data.input).keypress(function (event) {
-                                if (window.event)
-                                    return (window.event.keyCode !== 13);
-                                else
-                                    return (event.which !== 13);
-                            });
-                        }
-                        $table.bind('footable_clear_filter', function () {
-                            $(data.input).val('');
-                            p.clearFilter();
-                        });
-                        $table.bind('footable_filter', function (event, args) {
-                            p.filter(args.filter);
-                        });
-                        $(data.input).keyup(function (eve) {
-                            ft.timers.filter.stop();
-                            if (eve.which === 27) {
-                                $(data.input).val('');
+                $(ft.table)
+                    .unbind('.filtering')
+                    .bind({
+                        'footable_initialized.filtering': function (e) {
+                            var $table = $(ft.table);
+                            var data = {
+                                'input': $table.data('filter') || ft.options.filter.input,
+                                'timeout': $table.data('filter-timeout') || ft.options.filter.timeout,
+                                'minimum': $table.data('filter-minimum') || ft.options.filter.minimum,
+                                'disableEnter': $table.data('filter-disable-enter') || ft.options.filter.disableEnter
+                            };
+                            if (data.disableEnter) {
+                                $(data.input).keypress(function (event) {
+                                    if (window.event)
+                                        return (window.event.keyCode !== 13);
+                                    else
+                                        return (event.which !== 13);
+                                });
                             }
-                            ft.timers.filter.start(function () {
-                                var val = $(data.input).val() || '';
-                                p.filter(val);
-                            }, data.timeout);
-                        });
-                    },
-                    'footable_redrawn': function (e) {
-                        var $table = $(ft.table),
-                            filter = $table.data('filter-string');
-                        if (filter) {
-                            p.filter(filter);
+                            $table.bind('footable_clear_filter', function () {
+                                $(data.input).val('');
+                                p.clearFilter();
+                            });
+                            $table.bind('footable_filter', function (event, args) {
+                                p.filter(args.filter);
+                            });
+                            $(data.input).keyup(function (eve) {
+                                ft.timers.filter.stop();
+                                if (eve.which === 27) {
+                                    $(data.input).val('');
+                                }
+                                ft.timers.filter.start(function () {
+                                    var val = $(data.input).val() || '';
+                                    p.filter(val);
+                                }, data.timeout);
+                            });
+                        },
+                        'footable_redrawn.filtering': function (e) {
+                            var $table = $(ft.table),
+                                filter = $table.data('filter-string');
+                            if (filter) {
+                                p.filter(filter);
+                            }
                         }
-                    }
                 })
                 //save the filter object onto the table so we can access it later
                 .data('footable-filter', p);
@@ -85,23 +88,22 @@
                 minimum = $table.data('filter-minimum') || ft.options.filter.minimum,
                 clear = !filterString;
 
-            if (filterString && filterString.length < minimum) {
-                return; //if we do not have the minimum chars then do nothing
-            }
-
             //raise a pre-filter event so that we can cancel the filtering if needed
             var event = ft.raise('footable_filtering', { filter: filterString, clear: clear });
             if (event && event.result === false) return;
+            if (event.filter && event.filter.length < minimum) {
+              return; //if we do not have the minimum chars then do nothing
+            }
 
-            if (clear) {
+          if (event.clear) {
                 p.clearFilter();
             } else {
-                var filters = filterString.split(' ');
+                var filters = event.filter.split(' ');
 
                 $table.find('> tbody > tr').hide().addClass('footable-filtered');
                 var rows = $table.find('> tbody > tr:not(.footable-row-detail)');
                 $.each(filters, function (i, f) {
-                    if (f && f.length) {
+                    if (f && f.length > 0) {
                         $table.data('current-filter', f);
                         rows = rows.filter(ft.options.filter.filterFunction);
                     }
@@ -110,8 +112,8 @@
                     p.showRow(this, ft);
                     $(this).removeClass('footable-filtered');
                 });
-                $table.data('filter-string', filterString);
-                ft.raise('footable_filtered', { filter: filterString, clear: false });
+                $table.data('filter-string', event.filter);
+                ft.raise('footable_filtered', { filter: event.filter, clear: false });
             }
         };
 
@@ -137,6 +139,6 @@
         };
     }
 
-    w.footable.plugins.register(new Filter(), defaults);
+    w.footable.plugins.register(Filter, defaults);
 
 })(jQuery, window);

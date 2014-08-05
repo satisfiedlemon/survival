@@ -127,7 +127,7 @@ function submit_week_number() {
     $week = 17;
   }*/
 
-  $week = 1;
+  $week = 2;
 
   return $week;
 }
@@ -191,12 +191,18 @@ function submit_contents() {
 
   $query_users = db_update('users')
     ->fields(array(
-      'week_1_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
+      
+      //'week_1_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
+      'week_2_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
+
       'wid' => $week,
     ))
     ->condition('uid', $user->uid, '=')
     ->condition('wid', $week, '=')
-    ->condition('week_1_pick', '', '=')
+    
+    //->condition('week_1_pick', NULL)
+    ->condition('week_2_pick', NULL)
+
     //->condition('week_1_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
     //->condition('week_2_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
     //->condition('week_3_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
@@ -279,6 +285,7 @@ function submit_block_view($delta = '') {
             'items' => $items));
         }
       }
+
     return $block;
   }
 }
