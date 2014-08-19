@@ -127,7 +127,7 @@ function submit_week_number() {
     $week = 17;
   }*/
 
-  $week = 2;
+  $week = 1;
 
   return $week;
 }
@@ -192,16 +192,22 @@ function submit_contents() {
   $query_users = db_update('users')
     ->fields(array(
       
-      //'week_1_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
-      'week_2_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
+      'week_1_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
+      //'week_2_pick' => str_replace(' ', '_', strtolower($_POST['team_name'])),
 
       'wid' => $week,
     ))
     ->condition('uid', $user->uid, '=')
     ->condition('wid', $week, '=')
     
-    //->condition('week_1_pick', NULL)
-    ->condition('week_2_pick', NULL)
+    ->condition('week_1_pick', NULL)
+    //->condition('week_2_pick', NULL)
+
+    //MAKING SURE EACH TEAMS CAN BE ONLY CHOSEN ONCE BY THE SAME USER
+    //->condition('week_1_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
+
+    //->condition('week_1_pick', 'week_2_pick', '!=')
+    //->condition('week_2_pick', NULL)
 
     //->condition('week_1_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')
     //->condition('week_2_pick', str_replace(' ', '_', strtolower($_POST['team_name'])), '!=')

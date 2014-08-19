@@ -72,24 +72,28 @@ function picks_contents() {
 
   //use database API to retrieve the selected pick
 
-  $selected_pick = db_select('picks', 'p');
-  $selected_pick->join('users', 'u', 'p.uid = u.uid');
-  //$selected_pick = db_select('users', 'u');
+  //$selected_pick = db_select('picks', 'p');
+  //$selected_pick->join('users', 'u', 'p.uid = u.uid');
+
+  $selected_pick = db_select('users', 'u');
   $query = $selected_pick
   
-    ->fields('p', array('id', 'uid', 'wid', 'pick'))
+    //->fields('p', array('id', 'uid', 'wid', 'pick'))
 
     ->fields('u', array('name', 'uid' ,'wid', 'alive', 'week_1_pick', 'week_2_pick', 'week_3_pick', 'week_4_pick', 'week_5_pick', 'week_6_pick', 'week_7_pick', 'week_8_pick', 'week_9_pick', 'week_10_pick', 'week_11_pick', 'week_12_pick', 'week_13_pick', 'week_14_pick', 'week_15_pick', 'week_16_pick', 'week_17_pick'))
 
     ->condition('u.alive', 0) //still alive
 
     ->condition('u.wid', $wid) //current week
+    ->condition('u.week_1_pick', '', '!=') //show only if users picked a team
+
+    //->condition('u.week_1_pick', 'u.week_2_pick', '!=')
+
     //->condition('p.wid', $wid)
+
+    //->condition('u.week_1_pick', 'p.picks', '!=')
+
     //->condition('u.week_1_pick', 'u.week_7_pick', '!=')
-
-    ->condition('u.week_1_pick', 'p.picks', '!=')
-    //->condition('u.week_2_pick', 'u.week_1_pick', '!=')
-
     //->condition('u.week_2_pick', 'u.week_7_pick', '!=')
     //->condition('u.week_3_pick', 'u.week_7_pick', '!=')
     //->condition('u.week_4_pick', 'u.week_7_pick', '!=')
@@ -187,6 +191,8 @@ function picks_block_view($delta = '') {
 
         $get_week_number = picks_week_number();
         $week_number = 'week_' . $get_week_number . '_pick';
+
+        //print_r($week_number);
         
         //array to contain items for the block to render
         $items = array();
@@ -196,19 +202,21 @@ function picks_block_view($delta = '') {
         //iterate over the result set and format as links
         foreach($result as $node) {
           
-          print_r($node);
-          //print_r($prev);
-          //print_r($week_number);
+          //print_r($node);
 
           //if($node->uid != $prev->uid && $node->wid == $get_week_number) {
 
-          if($node->u_wid == $get_week_number) {
+          if($node->wid == $get_week_number) {
             $items[] = array(
               //'data' => l($node->name, 'node/' . $node->uid),
               //'data' =>'ID '. $node->id . ' ' . 'Week ' . $node->wid . ' : ' . $node->name . ' picked ' . $node->$week_number,
-              'data' =>'Week ' . $node->u_wid . ' : ' . $node->name . ' picked ' . $node->$week_number,
-              'uid' => $node->u_uid,
-              'wid' => $node->u_wid,
+              
+              //'data' =>'Week ' . $node->wid . ' : ' . $node->name . ' picked ' . $node->$week_number,
+
+              'data' => '<div class="final-picks"><span class="week-no">Week ' . $node->wid . '</span><span class="submission">' . $node->$week_number . '</span></div><span class="user-name">' . $node->name . '</span>',
+
+              'uid' => $node->uid,
+              'wid' => $node->wid,
               'name' => $node->name,
               'picked' => $node->$week_number,
             );
@@ -236,8 +244,36 @@ function picks_block_view($delta = '') {
 
           $block['content'] = theme('item_list', array(
             'items' => $items));
+          /*$block['content'] = array(
+            'items' => $items
+          );*/
         }
       }
+
     return $block;
   }
 }
+
+
+/**
+ * hook_block_view_alter
+ *
+ */
+/*function picks_block_view_alter(&$data, $block) {
+  // Remove the contextual links on all blocks that provide them.
+  if (is_array($data['content']) && isset($data['content']['#contextual_links'])) {
+    unset($data['content']['#contextual_links']);
+  }
+  // Add a theme wrapper function defined by the current module to all blocks
+  // provided by the "somemodule" module.
+  if (is_array($data['content']) && $block->module == 'picks') {
+    //$data['content']['#theme_wrappers'][] = 'mymodule_special_block';
+    $data['content']['#theme_wrappers'][] = 'picks_special_block';
+  }
+
+  switch ($block->delta) {
+    case 'picks':
+       $data['subject'] = 'bar';
+       break;
+  }
+}*/
